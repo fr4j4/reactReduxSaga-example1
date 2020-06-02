@@ -7,7 +7,13 @@ import {Provider} from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import mainReducer from './reducers' 
 
-const store = createStore(mainReducer)
+import createSagaMiddleware from 'redux-saga'
+import mySaga from './sagas'
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(mainReducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(mySaga)
 
 ReactDOM.render(
   <React.StrictMode>
